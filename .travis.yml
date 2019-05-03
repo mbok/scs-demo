@@ -8,14 +8,12 @@ language: node_js
 node_js:
   - "10"
 
-script:
-  - npm run build
-
 env:
   global:
     - COMMIT=${TRAVIS_COMMIT::8}
 
-after_success:
+script:
+  - npm run build
   - docker login -u $DOCKER_USER -p $DOCKER_PASS $DOCKER_REGISTRY
   - export REPO=mboook/scs-demo
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
